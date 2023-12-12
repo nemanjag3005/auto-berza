@@ -4,11 +4,11 @@ import React from "react";
 const Main = () => {
   return (
     <div className="w-full  text-gray-900 dark:bg-gray-900 dark:text-gray-100">
-      <div className="max-w-8xl mx-auto flex py-3 ">
+      <div className="mx-auto flex max-w-8xl py-3 ">
         <div>
           <div className=" w-full xl:flex xl:items-center xl:justify-between">
-            <div className="3xl:flex 3xl:items-center block">
-              <h1 className="3xl:mb-0 3xl:mr-3 mb-3 hidden px-3 text-left text-2xl font-bold sm:block sm:px-0">
+            <div className="block 3xl:flex 3xl:items-center">
+              <h1 className="mb-3 hidden px-3 text-left text-2xl font-bold sm:block sm:px-0 3xl:mb-0 3xl:mr-3">
                 Aukcije
               </h1>
               <div className="grid w-full grid-cols-3 gap-2 px-3 font-medium sm:flex sm:items-center sm:px-0 sm:text-sm sm:font-normal">
@@ -65,7 +65,7 @@ const Main = () => {
                 </button>
               </div>
             </div>
-            <div className="xl:ml-30 mt-1 flex items-center overflow-x-auto whitespace-nowrap text-sm text-gray-500 sm:mt-3  xl:mt-0">
+            <div className="xl:ml-30 mt-1 flex max-w-[100vw] items-center overflow-x-auto whitespace-nowrap text-sm text-gray-500 sm:mt-3  xl:mt-0">
               <button className="py-3.5 pl-3 pr-2 font-medium hover:text-gray-900">
                 Uskoro gotovo
               </button>
@@ -83,7 +83,7 @@ const Main = () => {
               </button>
             </div>
           </div>
-          <div className="lg-xl:grid-cols-3 grid grid-cols-1 sm:grid-cols-2 sm:gap-8 sm:py-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-8 sm:py-3 lg-xl:grid-cols-3">
             <div className="group">
               <div className="relative h-64 w-full cursor-pointer sm:rounded-sm">
                 <Image
