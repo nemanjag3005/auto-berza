@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import { CreatePost } from "~/app/_components/create-post";
 import Main from "~/components/Landing.tsx/Main";
 import { getServerAuthSession } from "~/server/auth";
@@ -12,7 +10,6 @@ export default async function Home() {
   return (
     <>
       <Main />
-      <CrudShowcase />
     </>
   );
 }
