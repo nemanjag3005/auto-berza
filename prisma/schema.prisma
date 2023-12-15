@@ -26,6 +26,78 @@ model Post {
     @@index([name])
 }
 
+model Make {
+    id      Int       @id @default(autoincrement())
+    name    String    @unique
+    models  Model[]
+    Listing Listing[]
+}
+
+model Model {
+    id       Int       @id @default(autoincrement())
+    makeId   Int
+    name     String    @unique
+    makes    Make      @relation(fields: [makeId], references: [id])
+    listings Listing[]
+}
+
+model Image {
+    id        Int     @id @default(autoincrement())
+    url       String
+    listingId String
+    listing   Listing @relation(fields: [listingId], references: [id])
+}
+
+model Transmission {
+    id        Int       @id @default(autoincrement())
+    name      String
+    listingId String
+    listings  Listing[]
+}
+
+model BodyStyle {
+    id        Int       @id @default(autoincrement())
+    name      String
+    listingId String
+    listings  Listing[]
+}
+
+model Listing {
+    id               String   @id @default(cuid())
+    makeId           Int
+    modelId          Int
+    transmissionId   Int
+    bodyStyleId      Int
+    title            String   @default("Title")
+    year             Int
+    description      String
+    mileage          Float
+    vin              String
+    titleStatus      String
+    location         String
+    engine           String
+    transmissionDesc String
+    driveTrain       String
+    exteriorColor    String
+    interiorColor    String
+    sellerType       String
+    isReserve        Boolean
+    highlights       String
+    images           Image[]
+    startingBid      Float
+    currentBid       Float
+    startTime        DateTime @default(now())
+    endTime          DateTime
+    status           String
+    createdById      String
+
+    createdBy    User         @relation(fields: [createdById], references: [id])
+    transmission Transmission @relation(fields: [transmissionId], references: [id])
+    bodyStyle    BodyStyle    @relation(fields: [bodyStyleId], references: [id])
+    make         Make         @relation(fields: [makeId], references: [id])
+    model        Model        @relation(fields: [modelId], references: [id])
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -59,6 +131,7 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
+    listings      Listing[]
     accounts      Account[]
     sessions      Session[]
     posts         Post[]

@@ -26,7 +26,7 @@ export default async function RootLayout({
   const session = await getServerAuthSession();
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} sm:px-8`}>
+      <body className={`font-sans ${inter.variable} bg-gray-50 sm:px-8`}>
         <TRPCReactProvider cookies={cookies().toString()}>
           <Navbar session={session} />
           {children}

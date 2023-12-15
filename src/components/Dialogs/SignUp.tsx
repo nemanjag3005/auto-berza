@@ -1,9 +1,7 @@
 "use client";
 import { Dialog, Transition } from "@headlessui/react";
-import NextAuth from "next-auth";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
-import { authOptions } from "~/server/auth";
 import { signIn } from "next-auth/react";
 
 const SignUp = ({
@@ -133,7 +131,10 @@ const SignUp = ({
                         </button>
                       </p>
                       <div className="my-6">
-                        <button className="flex w-full items-center justify-center rounded border py-2 text-sm font-medium text-gray-800">
+                        <button
+                          onClick={() => signIn("google")}
+                          className="flex w-full items-center justify-center rounded border py-2 text-sm font-medium text-gray-800"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 48 48"

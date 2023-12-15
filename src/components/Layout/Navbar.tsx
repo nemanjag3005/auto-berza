@@ -1,18 +1,27 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Newsletter from "../Dialogs/Newsletter";
 import SignUp from "../Dialogs/SignUp";
 import type { Session } from "next-auth";
 import Sidebar from "./Sidebar";
+import useOutsideClickDetector from "~/hooks/Misc/outsideClickDetector";
+import { signOut } from "next-auth/react";
 
 const Navbar = ({ session }: { session: Session | null }) => {
   const [isDialogVisible, setIsDialogVisible] = useState(false);
   const [newsletterOpen, setNewsletterOpen] = useState(false);
   const [signupOpen, setSignupOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+
+  const profileRef = useRef<HTMLButtonElement>(null);
+
+  useOutsideClickDetector(profileRef, () => {
+    setProfileMenuOpen(false);
+  });
   return (
-    <div className="sticky top-0 z-50 w-full bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <div className="sticky top-0 z-50 w-full bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <div className="mx-auto flex max-w-8xl flex-col px-3 sm:border-b sm:px-0">
         <div
           onMouseLeave={() => setIsDialogVisible(false)}
@@ -107,7 +116,11 @@ const Navbar = ({ session }: { session: Session | null }) => {
                     />
                   </svg>
                 </button>
-                <button className="group flex items-center">
+                <button
+                  ref={profileRef}
+                  onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+                  className="group relative flex items-center"
+                >
                   <div className="rounded-full p-2 group-hover:bg-gray-200">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -138,6 +151,47 @@ const Navbar = ({ session }: { session: Session | null }) => {
                       d="M19.5 8.25l-7.5 7.5-7.5-7.5"
                     />
                   </svg>
+                  {profileMenuOpen && (
+                    <div className="absolute right-0 top-16 flex w-48 flex-col items-start space-y-4 rounded-lg bg-white px-6 py-6 text-[0.9375rem] font-medium text-gray-600 shadow-xl">
+                      <div className="flex w-full items-center justify-between ">
+                        <Link href="/nalog">
+                          <span className="hover:text-gray-900">Profil</span>
+                        </Link>
+                        <Link href="/nalog">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-6 w-6"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                            />
+                          </svg>
+                        </Link>
+                      </div>
+                      <Link href="/nalog/pratim">
+                        <span className="hover:text-gray-900">Pratim</span>
+                      </Link>
+                      <Link href="/nalog/moji-oglasi">
+                        <span className="hover:text-gray-900">Moji Oglasi</span>
+                      </Link>
+                      <Link href="/nalog/podesavanja">
+                        <span className="hover:text-gray-900">Podešavanja</span>
+                      </Link>
+
+                      <button
+                        onClick={() => signOut()}
+                        className="hover:text-gray-900"
+                      >
+                        Izloguj se
+                      </button>
+                    </div>
+                  )}
                 </button>
               </div>
             )}

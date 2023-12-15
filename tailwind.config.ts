@@ -20,7 +20,7 @@ export default {
         accent: "#2196F3",
       },
       maxWidth: {
-        "8xl": "88rem",
+        "8xl": "85rem",
       },
     },
   },
